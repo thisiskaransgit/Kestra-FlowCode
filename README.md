@@ -1,6 +1,6 @@
 ## TL;DR = Know today's weather on Slack
 
-The flow code has 4 tasks:
+The flow code has 5 tasks:
  1. Get the user's IP Address using ipify api
  2. Use the IP Address to know the city the user is in using ipstack api
  3. Provide the latest weather description along with temperature, humidity, and UV index as the Output using the weatherstack api
