@@ -32,7 +32,7 @@ services:
       - /tmp/kestra-wd:/tmp/kestra-wd
     environment:
       SECRET_WHOCITY: YTgwMjRmY2VkM2JhMjkzY2RiNTRjY2UwOWM0YWEwYmM=
-      SECRET_WHOWHEATHER: MzY0MDgxYmJmZjhlZjYwNTQ4MjQxNDcwOWE4Njk0MzA=
+      SECRET_WHOWEATHER: MzY0MDgxYmJmZjhlZjYwNTQ4MjQxNDcwOWE4Njk0MzA=
       SECRET_WHOSLACK: VDA5MjkyVEcwN00vQjA5Mkc1Wk5LVE4vQzNDa2RVc29XUXhidHh5cE1LOURwYjNz
       KESTRA_CONFIGURATION: |
         datasources:
