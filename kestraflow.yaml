@@ -17,7 +17,7 @@ tasks:
 
 - id: GetWeather
   type: io.kestra.plugin.core.http.Request
-  uri: http://api.weatherstack.com/current?access_key={{secret('WHOWHEATHER')}}&query={{outputs.TransformCity.value}}
+  uri: http://api.weatherstack.com/current?access_key={{secret('WHOWEATHER')}}&query={{outputs.TransformCity.value}}
 
 - id: TransformWe
   type: io.kestra.plugin.transform.jsonata.TransformValue
