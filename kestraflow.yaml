@@ -1,0 +1,48 @@
+id: chinchilla_405354
+namespace: company.team
+
+tasks: 
+- id: FetchIp
+  type: io.kestra.plugin.core.http.Request
+  uri: https://api.ipify.org
+
+- id: GetCity
+  type: io.kestra.plugin.core.http.Request
+  uri: http://api.ipstack.com/{{outputs.FetchIp.body}}?access_key={{secret('WHOCITY')}}&fields=city
+
+- id: TransformCity
+  type: io.kestra.plugin.transform.jsonata.TransformValue
+  from: "{{outputs.GetCity.body}}"
+  expression: $.city
+
+- id: GetWeather
+  type: io.kestra.plugin.core.http.Request
+  uri: http://api.weatherstack.com/current?access_key={{secret('WHOWHEATHER')}}&query={{outputs.TransformCity.value}}
+
+- id: TransformWe
+  type: io.kestra.plugin.transform.jsonata.TransformValue
+  from: "{{outputs.GetWeather.body}}"
+  expression: |
+     $.location.localtime & " ,from "& $.location.name & ", "
+     & $.location.region & " ("&
+     $.location.country &")" & "." &" Here's a quick weather report, today's weather is " & 
+     $.current.weather_descriptions[0] & " with current conditions as follows temperature: " & 
+     $.current.temperature & " degree Celcius" & " and humidity: " & $.current.humidity & "." & "The uv index is "& $.current.
+      (
+        $.current.uv_index < 3 ? "Low" :
+        $.current.uv_index < 6 ? "Moderate" :
+        "High"
+      )
+
+- id: LogData
+  type: io.kestra.plugin.core.output.OutputValues
+  values: 
+    msg: User's IP Address is {{outputs.FetchIp.body}} and the code is executed on {{outputs.TransformWe.value}}
+
+- id: send_slack_message
+  type: io.kestra.plugin.notifications.slack.SlackIncomingWebhook
+  url: https://hooks.slack.com/services/{{secret('WHOSLACK')}}
+  payload: |
+    {
+      "text": "{{outputs.LogData.values.msg}}"
+    } 
