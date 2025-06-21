@@ -1,4 +1,4 @@
-## TL;DR = Know the weather conditions of your city 
+## TL;DR = Know today's weather on Slack
 
 The flow code has 4 tasks:
  1. Get the user's IP Address using ipify api
@@ -10,8 +10,14 @@ The flow code has 4 tasks:
 - This code utilises the Jsonata plugin to transform and query the JSON data received from the api request.
 - It uses the Slack-notification plugin to send a message in the workspace after the task is successfully run.
 
+You can join the Dummy Workspace to view the message, here is the invite [Link](https://join.slack.com/t/testingflow-group/shared_invite/zt-37wnj78jp-XFKCy7b0M3dgpAoTcg4kcQ#)
 
 The code has the necessary API Keys in the Docker Compose file for easy testing purposes. Users are free to use their credentials for testing 
-
+Resources:
+1. https://www.ipify.org/
+2. https://ipstack.com/dashboard (Get your own key)
+3. https://weatherstack.com/dashboard (Get your own key)
+4. https://api.slack.com/ (Get your own key)
+5. https://kestra.io/docs 
 
 #KestraHackWeek
