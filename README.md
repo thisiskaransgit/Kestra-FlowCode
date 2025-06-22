@@ -2,7 +2,7 @@
 
 The flow code has 5 tasks:
  1. Get the user's IP Address using ipify api
- 2. Use the IP Address to know the city the user is in using ipstack api
+ 2. Use the IP Address to know the city the user is in using ipinfo api
  3. Provide the latest weather description along with temperature, humidity, and UV index as the Output using the weatherstack api
  4. Query the data and provide the output in a paragraph with the needed information
  5. Send the output as a message to the Slack workspace
@@ -15,7 +15,7 @@ You can join the Dummy Workspace to view the message. Here is the invite [Link](
 The code has the necessary API Keys in the Docker Compose file for easy testing purposes. Users can replace them with their own. 
 Resources:
 1. https://www.ipify.org/
-2. https://ipstack.com/dashboard (Get your key)
+2. https://ipinfo.io/dashboard/ (Get your key)
 3. https://weatherstack.com/dashboard (Get your key)
 4. https://api.slack.com/ (Get your key)
 5. https://kestra.io/docs 
