@@ -1,24 +1,21 @@
-id: chinchilla_405354
-namespace: company.team
-
 tasks: 
 - id: FetchIp
   type: io.kestra.plugin.core.http.Request
-  uri: https://api64.ipify.org
+  uri: https://api.ipify.org
 
 - id: GetCity
   type: io.kestra.plugin.core.http.Request
-  uri: https://api.techniknews.net/ipgeo/{{outputs.FetchIp.body}}
+  uri: https://ipinfo.io/{{outputs.FetchIp.body}}?token=168acd85d71dfd
 
 - id: TransformCity
   type: io.kestra.plugin.transform.jsonata.TransformValue
   from: "{{outputs.GetCity.body}}"
   expression: $.city
 
-- id: TransformIsp
+- id: TransformAsn
   type: io.kestra.plugin.transform.jsonata.TransformValue
   from: "{{outputs.GetCity.body}}"
-  expression: $.isp
+  expression: $.org
 
 - id: GetWeather
   type: io.kestra.plugin.core.http.Request
@@ -42,7 +39,7 @@ tasks:
 - id: LogData
   type: io.kestra.plugin.core.output.OutputValues
   values: 
-    deviceinfo: User's IP Address is {{outputs.FetchIp.body}} and your is isp is {{outputs.TransformIsp.value}}. 
+    deviceinfo: User's IP Address is {{outputs.FetchIp.body}} and your is asn is {{outputs.TransformAsn.value}}. 
     locateinfo: The code is executed on {{outputs.TransformWe.value}}
 
 - id: send_slack_message
@@ -50,6 +47,13 @@ tasks:
   url: https://hooks.slack.com/services/{{secret('WHOSLACK')}}
   payload: |
     {
-      "text": "{{outputs.LogData.values.deviceinfo}}"
-      "text": "{{outputs.LogData.values.locateinfo}}"
-    } 
+    	"blocks": [
+    		{
+    			"type": "section",
+    			"text": {
+    				"type": "mrkdwn",
+            "text": "{{outputs.LogData.values.deviceinfo}} \n {{outputs.LogData.values.locateinfo}}"
+    			}
+    		}
+    	]
+    }
