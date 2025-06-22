@@ -2,7 +2,7 @@
 
 The flow code has 5 tasks:
  1. Get the user's IP Address using ipify api
- 2. Use the IP Address to know the city the user is in using ipinfo api
+ 2. Use the IP Address to know the city the user is in and the isp of user using ipinfo api
  3. Provide the latest weather description along with temperature, humidity, and UV index as the Output using the weatherstack api
  4. Query the data and provide the output in a paragraph with the needed information
  5. Send the output as a message to the Slack workspace

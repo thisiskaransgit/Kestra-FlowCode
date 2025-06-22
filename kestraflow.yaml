@@ -1,3 +1,6 @@
+id: etlworkflow
+namsespace: kararnthakur
+
 tasks: 
 - id: FetchIp
   type: io.kestra.plugin.core.http.Request
