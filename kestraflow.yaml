@@ -1,5 +1,5 @@
-id: bee_794021
-namespace: company.team
+id: slack_invite
+namespace: thisiskaransgit
 
 inputs:
   - id: user
