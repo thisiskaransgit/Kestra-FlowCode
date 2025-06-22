@@ -37,7 +37,7 @@ Prerequisites: None!
 4. Save the file and then execute.
 5. The flow will ask for your response
 6. If yes, then give your name as an input (optional)
-7. Once the flow is done, head over to the output section to get the invite link for the workspace
+7. Once the flow is done, head over to the output section to get the invite link for the workspace, you will find the link in `invitelink` task
 8. In the workspace, you will receive a custom welcoming message.
 
 ## How to test with your credentials:

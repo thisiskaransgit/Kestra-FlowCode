@@ -13,84 +13,83 @@ inputs:
     required: false
     defaults: John Doe
     displayName: Please enter your name
-    dependsOn: 
-      inputs: 
+    dependsOn:
+      inputs:
         - user
-      condition: "{{inputs.user}}" 
-            
+      condition: "{{inputs.user}}"
+
 tasks:
   - id: decision
     type: io.kestra.plugin.core.flow.Switch
     value: "{{ inputs.user }}"
     cases:
       true:
-          - id: invitelink
-            type: io.kestra.plugin.core.output.OutputValues
-            values:
-              msg: Here is the link {{inputs.name}}
-              link: https://join.slack.com/t/testingflow-group/shared_invite/{{secret('INVITED')}}
+        - id: FetchIp
+          type: io.kestra.plugin.core.http.Request
+          uri: https://api.ipify.org
 
-          - id: FetchIp
-            type: io.kestra.plugin.core.http.Request
-            uri: https://api.ipify.org
-          
-          - id: GetCity
-            type: io.kestra.plugin.core.http.Request
-            uri: https://ipinfo.io/{{outputs.FetchIp.body}}?token=168acd85d71dfd
+        - id: GetCity
+          type: io.kestra.plugin.core.http.Request
+          uri: https://ipinfo.io/{{outputs.FetchIp.body}}?token=168acd85d71dfd
 
-          - id: TransformCity
-            type: io.kestra.plugin.transform.jsonata.TransformValue
-            from: "{{outputs.GetCity.body}}"
-            expression: $.city
-          
-          - id: TransformAsn
-            type: io.kestra.plugin.transform.jsonata.TransformValue
-            from: "{{outputs.GetCity.body}}"
-            expression: $.org
+        - id: TransformCity
+          type: io.kestra.plugin.transform.jsonata.TransformValue
+          from: "{{outputs.GetCity.body}}"
+          expression: $.city
 
-          - id: GetWeather
-            type: io.kestra.plugin.core.http.Request
-            uri: http://api.weatherstack.com/current?access_key={{secret('WHOWEATHER')}}&query={{outputs.TransformCity.value}}
+        - id: TransformAsn
+          type: io.kestra.plugin.transform.jsonata.TransformValue
+          from: "{{outputs.GetCity.body}}"
+          expression: $.org
 
-          - id: TransformWe
-            type: io.kestra.plugin.transform.jsonata.TransformValue
-            from: "{{outputs.GetWeather.body}}"
-            expression: |
-              $.location.localtime & "(localtime) ,from "& $.location.name & ", "
-              & $.location.region & " ("&
-              $.location.country &")" & "." &" Here's a quick weather report, today's weather is " & 
-              $.current.weather_descriptions[0] & " with current conditions as follows temperature: " & 
-              $.current.temperature & " degree Celcius" & " and humidity: " & $.current.humidity & "." & " The uv index is "& $.current.
-                (
-                  $.current.uv_index < 3 ? "Low" :
-                  $.current.uv_index < 6 ? "Moderate" :
-                  "High"
-                )
+        - id: GetWeather
+          type: io.kestra.plugin.core.http.Request
+          uri: http://api.weatherstack.com/current?access_key={{secret('WHOWEATHER')}}&query={{outputs.TransformCity.value}}
 
-          - id: LogData
-            type: io.kestra.plugin.core.output.OutputValues
-            values: 
-              deviceinfo: Your IP Address is {{outputs.FetchIp.body}} and your is asn is {{outputs.TransformAsn.value}}. 
-              locateinfo: You accepted the invite on {{outputs.TransformWe.value}}
+        - id: TransformWe
+          type: io.kestra.plugin.transform.jsonata.TransformValue
+          from: "{{outputs.GetWeather.body}}"
+          expression: |
+            $.location.localtime & "(localtime) ,from "& $.location.name & ", "
+            & $.location.region & " ("&
+            $.location.country &")" & "." &" Here's a quick weather report, today's weather is " & 
+            $.current.weather_descriptions[0] & " with current conditions as follows temperature: " & 
+            $.current.temperature & " degree Celcius" & " and humidity: " & $.current.humidity & "." & " The uv index is "& $.current.
+              (
+                $.current.uv_index < 3 ? "Low" :
+                $.current.uv_index < 6 ? "Moderate" :
+                "High"
+              )
 
-          - id: send_slack_message
-            type: io.kestra.plugin.notifications.slack.SlackIncomingWebhook
-            url: https://hooks.slack.com/services/{{secret('WHOSLACK')}}
-            payload: |
-              {
-                "blocks": [
-                  {
-                    "type": "section",
-                    "text": {
-                      "type": "mrkdwn",
-                      "text": "Welcome **{{inputs.name}}**, {{outputs.LogData.values.deviceinfo}} \n {{outputs.LogData.values.locateinfo}}"
-                    }
+        - id: LogData
+          type: io.kestra.plugin.core.output.OutputValues
+          values:
+            deviceinfo: Your IP Address is {{outputs.FetchIp.body}} and your is asn is {{outputs.TransformAsn.value}}.
+            locateinfo: You accepted the invite on {{outputs.TransformWe.value}}
+
+        - id: invitelink
+          type: io.kestra.plugin.core.output.OutputValues
+          values:
+            msg: Here is the link {{inputs.name}}, a welcome message is waiting for you
+            link: https://join.slack.com/t/testingflow-group/shared_invite/{{secret('INVITED')}}
+
+        - id: send_slack_message
+          type: io.kestra.plugin.notifications.slack.SlackIncomingWebhook
+          url: https://hooks.slack.com/services/{{secret('WHOSLACK')}}
+          payload: |
+            {
+              "blocks": [
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "Welcome *{{inputs.name}}*, {{outputs.LogData.values.deviceinfo}} \n {{outputs.LogData.values.locateinfo}}"
                   }
-                ]
-              }
+                }
+              ]
+            }
       false:
         - id: exit
           type: io.kestra.plugin.core.output.OutputValues
           values:
             msg: Sure, but we'll miss you ;)
-
