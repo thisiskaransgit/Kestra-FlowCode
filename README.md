@@ -13,11 +13,10 @@ The flow code has 7 tasks:
 - It uses the Jsonata plugin to transform and query the JSON data received from the api request.
 - It uses the Slack-notification plugin to send a message in the workspace after the task is successfully run.
 
- ### The purpose of the flow is to demonstrate the dynamic workflow orchestration capabilities of Kestra for an ETL (Extract, Transform, Load) pipeline use case.
+ #### The purpose of the flow is to demonstrate the dynamic workflow orchestration capabilities of Kestra for an ETL (Extract, Transform, Load) pipeline use case.
  
 You can join the Dummy Workspace to view the messages. Here is the invite [Link](https://join.slack.com/t/testingflow-group/shared_invite/zt-37wnj78jp-XFKCy7b0M3dgpAoTcg4kcQ#)
 
-The code has the necessary API Keys in the Docker Compose file for easy testing purposes. Users can replace them with their own. 
 Resources:
 1. https://www.ipify.org/
 2. https://ipinfo.io/dashboard/ (Get your key)
@@ -28,6 +27,7 @@ Resources:
 
 Disclaimer: The APIs used are under the free tier subscription, so if you run the flow  with VPN enabled or with Proxy, it will provide inaccurate data. 
 
+#### The code has the necessary API Keys in the Docker Compose file for easy testing purposes. Users can replace them with their own. 
 ## How to test: 
 Prerequisites: None!
 ### Steps
