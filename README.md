@@ -19,5 +19,6 @@ Resources:
 3. https://weatherstack.com/dashboard (Get your key)
 4. https://api.slack.com/ (Get your key)
 5. https://kestra.io/docs 
+6. https://docs.jsonata.org/overview.html
 
 #KestraHackWeek

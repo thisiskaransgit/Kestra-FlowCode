@@ -42,7 +42,7 @@ tasks:
 - id: LogData
   type: io.kestra.plugin.core.output.OutputValues
   values: 
-    deviceinfo: User's IP Address is {{outputs.FetchIp.body}} and your is asn is {{outputs.TransformAsn.value}}. 
+    deviceinfo: User's IP Address is {{outputs.FetchIp.body}} and asn is {{outputs.TransformAsn.value}}. 
     locateinfo: The code is executed on {{outputs.TransformWe.value}}
 
 - id: send_slack_message
