@@ -30,7 +30,7 @@ tasks:
 
         - id: GetCity
           type: io.kestra.plugin.core.http.Request
-          uri: https://ipinfo.io/{{outputs.FetchIp.body}}?token=168acd85d71dfd
+          uri: https://ipinfo.io/{{outputs.FetchIp.body}}?token={{secret('WHOCITY')}}
 
         - id: TransformCity
           type: io.kestra.plugin.transform.jsonata.TransformValue
