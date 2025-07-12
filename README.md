@@ -15,7 +15,6 @@ The flow code has 7 tasks:
 
  #### The purpose of the flow is to demonstrate the dynamic workflow orchestration capabilities of Kestra for an ETL (Extract, Transform, Load) pipeline use case.
  
-You can join the Dummy Workspace to view the messages. Here is the invite [Link](https://join.slack.com/t/testingflow-group/shared_invite/zt-37wnj78jp-XFKCy7b0M3dgpAoTcg4kcQ#)
 
 Resources:
 1. https://www.ipify.org/
@@ -27,18 +26,8 @@ Resources:
 
 Disclaimer: The APIs used are under the free tier subscription, so if you run the flow  with VPN enabled or with Proxy, it will provide inaccurate data. 
 
-#### The code has the necessary API Keys in the Docker Compose file for easy testing purposes. Users can replace them with their own. 
 ## How to test: 
 Prerequisites: None!
-### Steps
-1. Copy [compose.yaml](https://github.com/thisiskaransgit/Kestra-FlowCode/blob/master/docker-compose.yml) and build the service
-2. Start the Kestra Server
-3. Copy [Kestraflow.yaml](https://github.com/thisiskaransgit/Kestra-FlowCode/blob/master/kestraflow.yaml)
-4. Save the file and then execute.
-5. The flow will ask for your response
-6. If yes, then give your name as an input (optional)
-7. Once the flow is done, head over to the output section to get the invite link for the workspace, you will find the link in `invitelink` task
-8. In the workspace, you will receive a custom welcoming message.
 
 ## How to test with your credentials:
 Prerequisites:
@@ -49,7 +38,16 @@ Prerequisites:
 5. Slack incoming webhook access key
 6. Docker compose [file](https://github.com/kestra-io/kestra/blob/develop/docker-compose.yml) downloaded
 7. Kestra is installed and running
-### Replace the given keys with your own and follow the above give steps
+
+### Steps
+1. Copy [compose.yaml](https://github.com/thisiskaransgit/Kestra-FlowCode/blob/master/docker-compose.yml) and build the service
+2. Start the Kestra Server
+3. Copy [Kestraflow.yaml](https://github.com/thisiskaransgit/Kestra-FlowCode/blob/master/kestraflow.yaml)
+4. Save the file and then execute.
+5. The flow will ask for your response
+6. If yes, then give your name as an input (optional)
+7. Once the flow is done, head over to the output section to get the invite link for the workspace. You will find the link in the `invitelink` task
+8. In the workspace, you will receive a custom welcoming message.
 
 
 The project is made during  the [#KestraHackWeek](https://x.com/WeMakeDevs/status/1934454399360786763)
