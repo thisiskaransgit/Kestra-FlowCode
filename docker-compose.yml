@@ -22,7 +22,7 @@ services:
   kestra:
     image: kestra/kestra:latest
     pull_policy: always
-    # Note that this setup with a root user is intended for development purpose.
+    # Note that this setup with a root user is intended for development purposes.
     # Our base image runs without root, but the Docker Compose implementation needs root to access the Docker socket
     user: "root"
     command: server standalone
@@ -31,10 +31,10 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       - /tmp/kestra-wd:/tmp/kestra-wd
     environment:
-      SECRET_WHOCITY: MTY4YWNkODVkNzFkZmQ=
-      SECRET_WHOWEATHER: MzY0MDgxYmJmZjhlZjYwNTQ4MjQxNDcwOWE4Njk0MzA=
-      SECRET_WHOSLACK: VDA5MjkyVEcwN00vQjA5Mkc1Wk5LVE4vQzNDa2RVc29XUXhidHh5cE1LOURwYjNz
-      SECRET_INVITED: enQtMzd3bmo3OGpwLVhGS0N5N2IwTTNkZ3BBb1RjZzRrY1E=
+      SECRET_WHOCITY: YOUR_CREDENTIALS
+      SECRET_WHOWEATHER: YOUR_CREDENTIALS
+      SECRET_WHOSLACK: YOUR_CREDENTIALS
+      SECRET_INVITED: YOUR_CREDENTIALS
       KESTRA_CONFIGURATION: |
         datasources:
           postgres:
